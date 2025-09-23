@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  devops-app:
+    build: .
+    image: devops-image
+    container_name: devops-container
+    ports:
+      - "3000:3000"
+    restart: unless-stopped

@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "run": "node index.js",
+    "dev": "node index.js",
     "test": "node test.js"
   },
   "keywords": [],

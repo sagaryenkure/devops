@@ -1,20 +1,25 @@
-# Use a small Node.js base image
+# Stage 1: build
+FROM node:18-alpine AS build
+
+WORKDIR /app
+
+# Copy package.json and install only production deps
+COPY package.json package-lock.json* ./
+RUN npm ci --only=production
+
+# Copy source code
+COPY index.js ./
+
+# Stage 2: runtime
 FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy package.json if you have dependencies
-COPY package*.json ./
-RUN npm install --only=production || true
+# Copy only production dependencies and app code
+COPY --from=build /app /app
 
-# Copy app source
-COPY . .
-
-# Run as non-root user (comes with node:alpine)
-USER node
-
+# Expose port
 EXPOSE 3000
-ENV NODE_ENV=production
 
 # Start the app
-CMD ["node", "index.js"]
+CMD ["npm", "run","start"]

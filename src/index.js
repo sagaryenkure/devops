@@ -3,7 +3,7 @@ import express from "express";
 const app = express();
 const PORT = 3000;
 
-const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID || "null";
+const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID;
 app.get("/api", (req, res) => {
   res.json({
     message: "Hello from the devops api!",

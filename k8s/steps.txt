@@ -61,6 +61,8 @@ spec:
   kubectl get service
   minikube service devops-service
 
+  # or run the ./deploy.sh on gitbash terminal
+
 ## 7. Access pod name in your app (for debugging)
 Inside your containerized app, you can get the pod name with env var:
 

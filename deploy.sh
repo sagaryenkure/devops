@@ -2,7 +2,7 @@
 set -e
 
 # Variables
-NAME="devops-image"
+NAME="devops-api"
 USERNAME="sagaryenkure"
 IMAGE="$USERNAME/$NAME:latest"
 
@@ -24,3 +24,8 @@ kubectl get services
 
 echo "Fetching main service details..."
 kubectl get service "${NAME}-service"
+
+echo "Deployment complete."
+
+echo "Starting the application..."
+minikube service "${NAME}-service"

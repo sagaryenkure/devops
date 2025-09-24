@@ -4,16 +4,10 @@ const app = express();
 const PORT = 3000;
 
 const GOOGLE_ANALYTICS_ID = process.env.GOOGLE_ANALYTICS_ID || "null";
-const USER_ID = "rtuvxy23tu3bd833dhxb98vh7";
-const AUTH_TOKEN =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0.KMUFsIDTnFmyG3nMiGM6H9FNFUROf3wh7SmqJp-QV30";
-
 app.get("/api", (req, res) => {
   res.json({
     message: "Hello from the devops api!",
     googleAnalyticsId: GOOGLE_ANALYTICS_ID,
-    userId: USER_ID,
-    authToken: AUTH_TOKEN,
   });
 });
 

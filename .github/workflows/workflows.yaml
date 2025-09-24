@@ -33,4 +33,4 @@ jobs:
         run: npm test
 
       - name: deploy project
-        run: ./deploy.sh
+        run: sudo sh ./deploy.sh

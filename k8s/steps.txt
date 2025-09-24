@@ -1,0 +1,70 @@
+content = """# Minikube + Kubernetes Deployment Guide
+
+## 1. Install dependencies
+- Install kubectl:
+  curl -LO "https://dl.k8s.io/release/v1.34.0/bin/windows/amd64/kubectl.exe"
+
+- Install Minikube from official docs: https://minikube.sigs.k8s.io/docs/start/
+
+Check versions:
+  kubectl version --client
+  minikube version
+
+## 2. Start Minikube
+  minikube start
+
+## 3. Create Deployment (k8s/deployment.yaml)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devops-app
+  template:
+    metadata:
+      labels:
+        app: devops-app
+    spec:
+      containers:
+        - name: devops-container
+          image: nginx:latest   # Replace with your image
+          ports:
+            - containerPort: 80
+
+## 4. Create Service (k8s/service.yaml)
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops-service
+spec:
+  type: NodePort
+  selector:
+    app: devops-app
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30007   # Optional, else auto-assigned
+
+## 5. Apply configurations
+  kubectl apply -f k8s/deployment.yaml
+  kubectl apply -f k8s/service.yaml
+
+## 6. Verify
+- Check pods:
+  kubectl get pods
+  kubectl get pods -w
+
+- Check service:
+  kubectl get service
+  minikube service devops-service
+
+## 7. Access pod name in your app (for debugging)
+Inside your containerized app, you can get the pod name with env var:
+
+  const podName = process.env.HOSTNAME || "unknown";
+
+Note: POD_NAME only exists if you explicitly set it via Kubernetes env field.
+

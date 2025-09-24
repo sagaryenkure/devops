@@ -1,25 +1,25 @@
-# Stage 1: build
+# ===== Stage 1: Build =====
 FROM node:18-alpine AS build
 
 WORKDIR /app
 
-# Copy package.json and install only production deps
+# Copy dependencies first for caching
 COPY package.json package-lock.json* ./
 RUN npm ci --only=production
 
-# Copy source code
-COPY index.js ./
+# Copy all source files after dependencies
+COPY . .
 
-# Stage 2: runtime
+# ===== Stage 2: Runtime =====
 FROM node:18-alpine
 
 WORKDIR /app
 
-# Copy only production dependencies and app code
+# Copy everything from build stage
 COPY --from=build /app /app
 
 # Expose port
 EXPOSE 3000
 
 # Start the app
-CMD ["npm", "run","start"]
+CMD ["node", "index.js"]

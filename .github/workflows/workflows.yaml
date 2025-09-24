@@ -17,7 +17,7 @@ jobs:
         run: gitleaks detect --source ./src --exit-code 1
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     needs: gitleaks-scan
 
     steps:
